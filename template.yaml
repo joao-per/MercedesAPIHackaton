@@ -28,7 +28,7 @@ Resources:
       Memory: 4GB
       NetworkMode: awsvpc
       ExecutionRoleArn: !ImportValue DefaultECSTaskExecutionRoleArn
-      TaskRoleArn: !Sub arn:aws:iam::${AWS::AccountId}:role/PropertyManagerFargateRole
+      TaskRoleArn: !ImportValue eclass-InstacarRoleArn
       ContainerDefinitions:
         - Name: instacar
           Image: !Sub ${AWS::AccountId}.dkr.ecr.us-east-1.amazonaws.com/instacar:${Tag}
