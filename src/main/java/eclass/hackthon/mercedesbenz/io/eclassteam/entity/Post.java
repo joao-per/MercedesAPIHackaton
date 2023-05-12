@@ -1,6 +1,7 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.Set;
 
 @Entity
