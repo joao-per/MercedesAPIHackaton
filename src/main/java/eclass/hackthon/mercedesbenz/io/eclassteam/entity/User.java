@@ -1,8 +1,12 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
-import javax.persistence.*;
 import java.util.Set;
+import jakarta.persistence.*;
 
+/**
+ * Represents a User entity with an ID, username, and a set of posts associated
+ * with it.
+ */
 @Entity
 public class User {
     @Id
@@ -14,5 +18,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Post> posts;
 
-    // getters and setters
+    public Long getId() {
+        return id;
+    }
+
 }
