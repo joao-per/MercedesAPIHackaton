@@ -15,19 +15,15 @@ public class PostService {
     }
 
     public Post createPost(Post post) {
-        fetchAndSetDeeplink(post);
+        processTags(post);
         return postRepository.save(post);
     }
-    
-    private void fetchAndSetDeeplink(Post post) {
+
+    private void processTags(Post post) {
         for (String tag : post.getTags()) {
-            if (tag.startsWith("#")) {
-                String deeplink = deeplinkService.fetchDeeplink(tag.substring(1));
-                if (deeplink != null) {
-                    // If the tag corresponds to a Mercedes model, add the deeplink to the post
-                    // You might need to modify this part based on how you plan to store the deeplinks in the Post entity
-                    post.setDeeplink(deeplink);
-                }
+            String deeplink = deeplinkService.fetchDeeplink(tag);
+            if (deeplink != null) {
+                post.addDeeplink(deeplink);
             }
         }
     }

@@ -20,7 +20,13 @@ public class DeeplinkService {
 	* fetched from the Mercedes API.
 	*/
     public String fetchDeeplink(String model) {
-        String deeplink = restTemplate.getForObject("https://dev.api.oneweb.mercedes-benz.com/hackathon/deeplinks/" + model, String.class);
+        String apiUrl = "https://dev.api.oneweb.mercedes-benz.com/hackathon/deeplinks/models/" + model;
+        System.out.println("Fetching deeplink for model: " + model);
+        System.out.println("API URL: " + apiUrl);
+        String deeplink = restTemplate.getForObject(apiUrl, String.class);
         return deeplink;
     }
+
+    
+
 }

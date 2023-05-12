@@ -9,6 +9,7 @@ import java.util.Set;
  * with it.
  */
 @Entity
+@Table(name = "app_user")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,9 +52,6 @@ public class User {
 	public Set<User> getFollowers() {
 		return followers;
 	}
-
-	
-
 
 	@ManyToMany
 	@JoinTable(
