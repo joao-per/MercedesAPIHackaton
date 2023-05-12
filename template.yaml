@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ECS Tasks & Services
+
+Parameters:
+  ServiceName:
+    Description: A service name to be used as resource prefix
+    Type: String
+    Default: instacar
+  Tag:
+    Description: Image tag to deploy
+    Type: String
+
+
+Resources:
+  
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+       LogGroupName: !Sub "/ecs/containers/${ServiceName}"
+  
+  TaskDefinition:
+    DependsOn:
+      - LogGroup
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref ServiceName
+      Cpu: 2048
+      Memory: 4GB
+      NetworkMode: awsvpc
+      ExecutionRoleArn: !ImportValue DefaultECSTaskExecutionRoleArn
+      TaskRoleArn: !Sub arn:aws:iam::${AWS::AccountId}:role/PropertyManagerFargateRole
+      ContainerDefinitions:
+        - Name: instacar
+          Image: !Sub ${AWS::AccountId}.dkr.ecr.us-east-1.amazonaws.com/instacar:${Tag}
+          PortMappings:
+            - ContainerPort: 80
+          Environment:
+            - Name: DBHOST
+              Value: eclass.c4md8tfslyqp.eu-west-1.rds.amazonaws.com
+            - Name: INSTACAR_S3_BUCKET
+              Value:  eclass-instacar
+            - Name: DBNAME
+              Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:dbname}}"
+            - Name: DBUSER
+              Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:dbuser}}"
+            - Name: DBPASSWORD
+              Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:password}}"
+            - Name: AWS_REGION
+              Value: eu-west-1
+            - Name: APP_PORT
+              Value: "80"
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: !Ref AWS::Region
+              awslogs-group: !Ref LogGroup
+              awslogs-stream-prefix: ecs
+      RequiresCompatibilities:
+        - EC2
+        - FARGATE
+ 
