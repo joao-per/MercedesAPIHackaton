@@ -1,6 +1,8 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,4 +21,49 @@ public class Post {
 
 	@ElementCollection
 	private Set<String> tags;
+
+	private String deeplink;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public Set<String> getTags() {
+		return tags;
+	}
+
+	public String getDeeplink() {
+		return deeplink;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setTags(Set<String> tags) {
+		this.tags = tags;
+	}
+
+	public void setDeeplink(String deeplink) {
+		this.deeplink = deeplink;
+	}
+
+	@ManyToMany(mappedBy = "likedPosts")
+	private Set<User> likedByUsers = new HashSet<>();
 }
