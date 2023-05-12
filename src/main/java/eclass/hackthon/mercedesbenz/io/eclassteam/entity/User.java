@@ -9,12 +9,23 @@ import java.util.Set;
  * with it.
  */
 @Entity
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String username;
+
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	public String getUsername() {
 		return username;
@@ -52,9 +63,6 @@ public class User {
 		return followers;
 	}
 
-	
-
-
 	@ManyToMany
 	@JoinTable(
 		name = "likes",
@@ -66,6 +74,8 @@ public class User {
 	public Set<Post> getLikedPosts() {
 		return likedPosts;
 	}
+
+
 
 
 
