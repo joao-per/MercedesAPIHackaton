@@ -1,8 +1,8 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
-import java.util.Set;
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a User entity with an ID, username, and a set of posts associated
