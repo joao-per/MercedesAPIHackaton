@@ -1,19 +1,19 @@
-# First stage: complete build environment
-FROM maven:3.5.0-jdk-8-alpine AS builder
+FROM maven:3.8.3-openjdk-17-slim AS builder
 
-# add pom.xml and source code
-ADD ./pom.xml pom.xml
-ADD ./src src/
+WORKDIR /app
 
-# package jar
-RUN mvn clean package
+COPY pom.xml .
+COPY src ./src
 
-# Second stage: minimal runtime environment
-From openjdk:8-jre-alpine
+RUN mvn clean package -DskipTests
 
-# copy jar from the first stage
-COPY --from=builder target/my-app-1.0-SNAPSHOT.jar my-app-1.0-SNAPSHOT.jar
+FROM openjdk:17-slim
 
-EXPOSE 8080
+WORKDIR /app
 
-CMD ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
+COPY --from=builder /app/target/my-application.jar .
+
+EXPOSE 80
+
+CMD ["java", "-jar", "my-application.jar"]
+
