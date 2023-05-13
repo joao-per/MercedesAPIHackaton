@@ -9,7 +9,8 @@ COPY src ./src
 #RUN mvn package -DskipTests
 
 
-FROM adoptopenjdk:20-jre-hotspot
+#FROM adoptopenjdk:20-jre-hotspot
+FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
