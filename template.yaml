@@ -35,15 +35,15 @@ Resources:
           PortMappings:
             - ContainerPort: 80
           Environment:
-            - Name: DBHOST
+            - Name: URL
               Value: eclass.c4md8tfslyqp.eu-west-1.rds.amazonaws.com
             - Name: INSTACAR_S3_BUCKET
               Value:  eclass-instacar
             - Name: DBNAME
               Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:dbname}}"
-            - Name: DBUSER
+            - Name: USERNAME
               Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:dbuser}}"
-            - Name: DBPASSWORD
+            - Name: PASSWORD
               Value:  "{{resolve:secretsmanager:eclass-auth:SecretString:password}}"
             - Name: AWS_REGION
               Value: eu-west-1
