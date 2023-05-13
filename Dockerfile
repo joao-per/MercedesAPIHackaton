@@ -6,7 +6,7 @@ COPY pom.xml .
 #RUN mvn dependency:go-offline -B
 
 COPY src ./src
-RUN mvn package -DskipTests
+#RUN mvn package -DskipTests
 
 
 FROM adoptopenjdk:20-jre-hotspot
