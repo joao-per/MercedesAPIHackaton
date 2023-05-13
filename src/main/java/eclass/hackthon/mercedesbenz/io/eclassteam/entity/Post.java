@@ -9,7 +9,7 @@ import java.util.Set;
  * Represents a post with content, tags, and a user who created using JPA annotations.
  */
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,8 @@ public class Post {
 
 	private String content;
 
-	@JoinColumn(name = "id")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	@ManyToOne
 	private User user;
 
 	@ElementCollection
@@ -45,6 +45,12 @@ public class Post {
 	public String getDeeplink() {
 		return deeplink;
 	}
+
+	public void addDeeplink(String deeplink) {
+        if (this.deeplink == null) {
+            this.deeplink = deeplink;
+        }
+    }
 
 	public void setId(Long id) {
 		this.id = id;
