@@ -22,7 +22,7 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
-    
+
     public void followUser(Long userId, Long followerId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         User follower = userRepository.findById(followerId).orElseThrow(() -> new RuntimeException("Follower not found"));
@@ -45,4 +45,5 @@ public class UserService {
         }
         return feed;
     }
+
 }

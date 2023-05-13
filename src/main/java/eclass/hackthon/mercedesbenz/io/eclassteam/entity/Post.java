@@ -14,6 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "post")
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,7 @@ public class Post {
 
 	private String content;
 
+	@JoinColumn(name = "user_id")
 	@ManyToOne
 	private User user;
 
@@ -39,9 +41,6 @@ public class Post {
 
 	@ManyToMany(mappedBy = "likedPosts")
 	private Set<User> likedByUsers = new HashSet<>();
-
-
-
 
 	public String getDeeplink() {
 		return deeplink;

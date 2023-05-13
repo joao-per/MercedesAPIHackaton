@@ -23,4 +23,7 @@ public class DeeplinkService {
         String deeplink = restTemplate.getForObject("https://dev.api.oneweb.mercedes-benz.com/hackathon/deeplinks/models/" + model, String.class);
         return deeplink;
     }
+
+    
+
 }
