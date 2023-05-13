@@ -1,6 +1,7 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
 import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,72 +12,69 @@ import java.util.Set;
 @Entity
 @Table(name = "app_user")
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String username;
+    private String username;
 
-	private String password;
+    private String password;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Post> posts;
+    public String getUsername() {
+        return username;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Post> posts;
 
-	@ManyToMany
-	@JoinTable(
-		name = "followers",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "follower_id")
-	)
-	private Set<User> followers = new HashSet<>();
+    public Long getId() {
+        return id;
+    }
 
-
-	public Set<Post> getPosts() {
-		return posts;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public Set<User> getFollowers() {
-		return followers;
-	}
-
-	@ManyToMany
-	@JoinTable(
-		name = "likes",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "post_id")
-	)
-	private Set<Post> likedPosts = new HashSet<>();
-
-	public Set<Post> getLikedPosts() {
-		return likedPosts;
-	}
+    @ManyToMany
+    @JoinTable(
+            name = "followers",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "follower_id")
+    )
+    private Set<User> followers = new HashSet<>();
 
 
+    public Set<Post> getPosts() {
+        return posts;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<User> getFollowers() {
+        return followers;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "likes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> likedPosts = new HashSet<>();
+
+    public Set<Post> getLikedPosts() {
+        return likedPosts;
+    }
 
 
 }
