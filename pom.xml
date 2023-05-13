@@ -8,16 +8,15 @@
         <version>3.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <packaging>jar</packaging>
-    <java.version>20</java.version>
-    </properties>
     <groupId>eclass.hackthon.mercedesbenz.io</groupId>
     <artifactId>e-class-team</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>e-class-team</name>
     <description>e-class-team</description>
+    <packaging>jar</packaging>
     <properties>
-        <java.version>20</java.version>
+        <java.version>17</java.version>
+        <packaging>jar</packaging>
     </properties>
     <dependencies>
         <dependency>
