@@ -2,6 +2,7 @@ package eclass.hackthon.mercedesbenz.io.eclassteam.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import eclass.hackthon.mercedesbenz.io.eclassteam.entity.Post;
@@ -21,15 +22,24 @@ public class MercedesApiService {
 
     
     @PostConstruct
-    public void fetchModelData() {
-        String url = "https://dev.api.oneweb.mercedes-benz.com/hackathon/deeplinks/models";
-        ResponseEntity<String[]> response = restTemplate.getForEntity(url, String[].class);
-        String[] models = response.getBody();
-        for (String model : models) {
-            String deeplink = fetchDeeplink(model);
-            modelLinks.put(model, deeplink);
+public void fetchModelData() {
+    String url = "https://dev.api.oneweb.mercedes-benz.com/hackathon/deeplinks/models";
+    for (int attempts = 0; attempts < 3; attempts++) {
+        try {
+            ResponseEntity<String[]> response = restTemplate.getForEntity(url, String[].class);
+            String[] models = response.getBody();
+            for (String model : models) {
+                String deeplink = fetchDeeplink(model);
+                modelLinks.put(model, deeplink);
+            }
+            break;  // Break the loop if the request was successful
+        } catch (RestClientException e) {
+            System.err.println("Failed to fetch model data. Attempt " + (attempts + 1));
+            e.printStackTrace();
         }
     }
+}
+
     
     public String getDeeplink(String model) {
         return modelLinks.get(model);
