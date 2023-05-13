@@ -1,24 +1,29 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.controller;
 
 import eclass.hackthon.mercedesbenz.io.eclassteam.entity.Post;
+import eclass.hackthon.mercedesbenz.io.eclassteam.service.DeeplinkService;
 import eclass.hackthon.mercedesbenz.io.eclassteam.service.PostService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Defines a REST API endpoint for creating a new post using a PostService.
- */
 @RestController
+@RequestMapping("/api")
 public class PostController {
-    private final PostService postService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
+    @Autowired
+    private DeeplinkService deeplinkService;
 
-    @PostMapping("/posts")
-    public Post createPost(@RequestBody Post post) {
+    @Autowired
+    private PostService postService;
+
+    @PostMapping("/post")
+    public Post createPost(@RequestBody Post post, @RequestParam String model) {
+        String deeplink = deeplinkService.fetchDeeplink(model);
+        post.setDeeplink(deeplink);
         return postService.createPost(post);
+    }
+    @GetMapping("/post/{id}")
+    public Post getPost(@PathVariable Long id) {
+        return postService.getPost(id);
     }
 }
