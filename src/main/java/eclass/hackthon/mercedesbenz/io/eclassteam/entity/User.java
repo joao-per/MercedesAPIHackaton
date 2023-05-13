@@ -1,25 +1,71 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a User entity with an ID, username, and a set of posts associated
  * with it.
  */
 @Entity
+@Table
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String username;
+	@Column(name = "username", nullable = false)
+	private String username;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Post> posts;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(unique = true)
+	private String email;
+
+	@JsonIgnore
+	private String password;
+
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
+
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+	private Set<Post> posts;
+
+	@ManyToMany
+	@JoinTable(
+		name = "followers",
+		joinColumns = @JoinColumn(name = "user_id"),
+		inverseJoinColumns = @JoinColumn(name = "follower_id")
+	)
+	private Set<User> followers = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(
+		name = "likes",
+		joinColumns = @JoinColumn(name = "user_id"),
+		inverseJoinColumns = @JoinColumn(name = "post_id")
+	)
+	private Set<Post> likedPosts = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+
 
 }
