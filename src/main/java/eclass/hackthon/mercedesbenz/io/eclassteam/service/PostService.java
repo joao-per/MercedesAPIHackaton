@@ -8,17 +8,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
     private final PostRepository postRepository;
-    private final MercedesApiService mercedesApiService;
+    private final DeeplinkService deeplinkService;
 
-    public PostService(PostRepository postRepository, MercedesApiService mercedesApiService) {
+    public PostService(PostRepository postRepository, DeeplinkService deeplinkService) {
         this.postRepository = postRepository;
-        this.mercedesApiService = mercedesApiService;
+        this.deeplinkService = deeplinkService;
     }
 
     public Post createPost(Post post) {
-        mercedesApiService.addDeeplinkToPost(post);
+        fetchAndSetDeeplink(post);
         return postRepository.save(post);
     }
+
     private void fetchAndSetDeeplink(Post post) {
         for (Tag tag : post.getTags()) {
             if (tag.getName().startsWith("#")) {
@@ -36,4 +37,3 @@ public class PostService {
         return postRepository.findById(id).orElse(null);
     }
 }
-
