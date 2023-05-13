@@ -80,9 +80,9 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
       Conditions:
-        - Field: host-header
+        - Field: path-pattern
           Values:
-            - "instacar.mercedes.com"
+            - /*
       Priority: 10
   Service:
     DependsOn:
