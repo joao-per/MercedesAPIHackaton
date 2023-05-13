@@ -1,6 +1,4 @@
-# e-class-team
-
-# INSTACAR
+# INSTACAR: E-CLASS
 
 Welcome, tech enthusiasts, developers, and car aficionados! 
 
