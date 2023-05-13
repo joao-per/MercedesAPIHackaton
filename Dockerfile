@@ -14,9 +14,9 @@ FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
-#COPY --from=builder /app/target/my-application.jar .
-COPY --from=builder /app/*.jar .
+COPY --from=builder /app/target/EClassTeamApplication.jar .
+#COPY --from=builder /app/*.jar .
 
 EXPOSE 80
 
-CMD ["java", "-jar", "my-application.jar"]
+CMD ["java", "-jar", "EClassTeamApplication.jar"]
