@@ -1,6 +1,9 @@
 package eclass.hackthon.mercedesbenz.io.eclassteam.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.Set;
  * Represents a post with content, tags, and a user who created using JPA annotations.
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "post")
 public class Post {
 	@Id
@@ -21,57 +26,34 @@ public class Post {
 	@ManyToOne
 	private User user;
 
-	@ElementCollection
-	private Set<String> tags;
-
 	private String deeplink;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(nullable = false)
+	private String title;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "posts_tags",
+			joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},
+			inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false, updatable = false)}
+	)
+	private Set<Tag> tags = new HashSet<>();
 
-	public String getContent() {
-		return content;
-	}
+	private String permalink;
 
-	public User getUser() {
-		return user;
-	}
-
-	public Set<String> getTags() {
-		return tags;
-	}
+	@ManyToMany(mappedBy = "likedPosts")
+	private Set<User> likedByUsers = new HashSet<>();
 
 	public String getDeeplink() {
 		return deeplink;
 	}
 
-	public void addDeeplink(String deeplink) {
-        if (this.deeplink == null) {
-            this.deeplink = deeplink;
-        }
-    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void setTags(Set<String> tags) {
-		this.tags = tags;
-	}
 
 	public void setDeeplink(String deeplink) {
 		this.deeplink = deeplink;
 	}
+	public void setPermalink(String permalink) {
+		String token = permalink.toLowerCase().replace("\n", " ").replaceAll("[^a-z\\d\\s]", " ");
+		this.permalink = StringUtils.arrayToDelimitedString(StringUtils.tokenizeToStringArray(token, " "), "-");
+	}
 
-	@ManyToMany(mappedBy = "likedPosts")
-	private Set<User> likedByUsers = new HashSet<>();
 }
