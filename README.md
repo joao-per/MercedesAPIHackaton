@@ -1,37 +1,49 @@
-# e-class-team
-=======
-# INSTACAR: E-CLASS
 
-Welcome, tech enthusiasts, developers, and car aficionados! 
+# 🏎️ **Instacar** - MercedesTagLinkerAPI 🏁
 
-Instacar is envisioned as an Instagram clone, but with a twist. Our platform is aimed
-specifically at the new generations of car enthusiasts, who harbor a deep passion for
-everything automobile. Instacar will serve as the perfect digital garage where
-like-minded people can connect, share their experiences, showcase their vehicles,
-and delve into the fascinating world of cars.
+Welcome to Instacar, a versatile API designed to seamlessly link social media posts to Mercedes-Benz car models! This API was developed during the exciting Mercedes Hackathon. 🚀
 
-This solution focused on the core features that make Instagram so popular:
-sharing high-quality images, creating and maintaining user profiles, curating and
-following feeds, and enabling interactions through likes and comments. 
+## 🎯 Features
 
+- **Posts:** Users can create posts with up to 10 images (max 5MB per image). 📷
+- **Tags and Metadata:** Each post supports tags and other metadata. 🏷️
+- **User Interaction:** Users can follow each other, like each other's posts, and generate personalized feeds. 👍🔖👥
+- **Mercedes Model Tags:** If a tag matches a Mercedes model, the post is automatically augmented with a deeplink to the corresponding model page. 🚗
+- **Scalability:** Built to support 5 million active users worldwide in one year. 🌍🌎🌏
 
-The ECLASS Team shared, brainstormed ideas and showcased her technical prowess,
-creativity, and love for cars to build INSTACAR. 
+## 📚 How to Use
 
-We believe as a Team, the inspiring platform would build a new generation
-of car enthusiasts worldwide
+- Install JDK 20
+- Clone the repository
+- Navigate to the project directory
+- Run the application
 
-![E-Class Project-Architecture (1)](https://github.com/UntangleTheCloudHQ/e-class-team/assets/71400388/f5a911d6-57ca-4c80-980b-19341713a1b4)
+Detailed instructions will be provided.
 
+## 🚀 Integration
 
-Future AddOn: To make this more flexible, enabling the application to support
-music, videos, and some of the other advanced features that Instagram exhibits would be nice.
+This API is integrated with the Mercedes-Benz models API. If a user tags their post with a specific Mercedes model, a deeplink to the corresponding model page is automatically added to the post.
 
+## 🏗️ Build and Deployment
 
+The API is hosted on AWS and uses a CI/CD pipeline for automated build and deployment.
 
+## 🛠️ Local Development
 
-Team Members.
- - Joao Pereira
- - Wuzor Gift Knowledge
- - Gustavo Henrique
- - Favour Okonta
+The project is built with Java and uses Spring REST framework. To run this locally, you need JDK 20 installed. More detailed instructions will be provided in the repository's wiki.
+
+## 📈 Performance
+
+This API was developed considering the performance and reliability issues of the deeplink external service. It ensures optimal performance even in challenging conditions.
+
+## 📄 License
+
+This project is licensed under the terms of the MIT license.
+
+## 🤝 Contributing
+
+We love contributions from everyone!! We're open to requests!
+
+## 🎉 Acknowledgements
+
+This project was made possible by the hard work and dedication of the development team during the Mercedes Hackathon 2023. A big thank you to Mercedes for organizing this wonderful event. 🎊🎉🎈
