@@ -19,16 +19,16 @@ public class PostService {
         fetchAndSetDeeplink(post);
         return postRepository.save(post);
     }
-    
+
     private void fetchAndSetDeeplink(Post post) {
         for (Tag tag : post.getTags()) {
             if (tag.getName().startsWith("#")) {
                 String deeplink = deeplinkService.fetchDeeplink(tag.getName().substring(1));
-                if (deeplink != null) {
-                    // If the tag corresponds to a Mercedes model, add the deeplink to the post
-                    // You might need to modify this part based on how you plan to store the deeplinks in the Post entity
-                    post.setDeeplink(deeplink);
-                }
+
+                // If the tag corresponds to a Mercedes model, add the deeplink to the post
+                // You might need to modify this part based on how you plan to store the deeplinks in the Post entity
+                post.setDeeplink(deeplink);
+
             }
         }
     }
